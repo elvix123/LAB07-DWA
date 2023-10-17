@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Películas en Cards</title>
+  <!-- Enlaces de Bootstrap y jQuery -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Películas en Cards</h1>
+    <div class="row" id="cards-container">
+ 
+    </div>
+  </div>
+
+  <script>
+  
+    fetch('/peliculas')
+      .then(response => response.json())
+      .then(data => {
+        const cardsContainer = document.getElementById('cards-container');
+        data.forEach(pelicula => {
+          const card = document.createElement('div');
+          card.classList.add('col-md-4', 'mb-3');
+          card.innerHTML = `
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">${pelicula.titulo}</h5>
+                <p class="card-text">Dirigida por ${pelicula.director}, ${pelicula.año}</p>
+              </div>
+            </div>
+          `;
+          cardsContainer.appendChild(card);
+        });
+      });
+  </script>
+</body>
+</html>
